@@ -54,5 +54,25 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/buscar")
+    public ResponseEntity<Usuario> buscarPorCorreo(@RequestParam String correo) {   
+        return usuarioService.buscarPorCorreo(correo)
+           .map(ResponseEntity::ok)
+           .orElse(ResponseEntity.notFound().build());
+    }
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
+
+    @GetMapping("/rol/{rol}")
+    public ResponseEntity<List<Usuario>> listarPorRol(@PathVariable String rol) {
+        List<Usuario> usuarios = usuarioService.buscarPorRol(rol);
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(usuarios);
+    }
+
 }
 

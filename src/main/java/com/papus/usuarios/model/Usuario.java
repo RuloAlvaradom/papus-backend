@@ -4,6 +4,9 @@ import jakarta.persistence.*; //Para conectar con MySQL
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.validation.constraints.NotBlank; //Importacion de Extencion Validation
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email; //Importacion de Extencion Validation
 
 @Entity // Marca esta clase como una entidad de base de datos
 @Table(name = "usuarios") // El nombre de la tabla será "usuarios"
@@ -16,16 +19,22 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) 
+    @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
-    @Column(nullable = false, unique = true) 
+    @NotBlank(message = "El apellido es obligatorio")
+    private String apellido;
+
+    @Email(message = "El correo no es válido")
+    @NotBlank(message = "El correo es obligatorio")
     private String correo;
 
-    @Column(nullable = false) 
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String contrasena;
 
-    @Column(nullable = false) 
+    @NotBlank(message = "El rol es obligatorio")
     private String rol;
+    
 }
 

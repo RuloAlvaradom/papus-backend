@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import com.papus.usuarios.repository.UsuarioRepository;
+
 @Service
 @Transactional// Asegura que las operaciones se ejecuten en una transacción
 public class UsuarioService {
@@ -35,4 +37,13 @@ public class UsuarioService {
     public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
     }
+
+    public Optional<Usuario> buscarPorCorreo(String correo) {
+        return usuarioRepository.findByCorreo(correo);
+    }
+
+    public List<Usuario> buscarPorRol(String rol) {
+        return usuarioRepository.findByRol(rol);
+    }
+
 }
